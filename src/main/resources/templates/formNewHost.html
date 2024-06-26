@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>New host</title>
+<link rel="stylesheet" href="/stile.css?version=3" />
+</head>
+<body>
+	<div>
+		<a href="/"><img src="/logo-siw.png" width="50%" /></a>
+	</div>
+	<h1>Aggiungi un Host</h1>
+	<form th:action="@{/host}" method="POST" th:object="${host}">
+		<div>
+			Nome: <span><input required type="text"
+				th:field="${host.name}" /></span>
+		</div>
+		<div>
+			Cognome : <span><input required type="text"
+				th:field="${host.surname}" /></span>
+		</div>
+		<div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+	</form>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Host</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
+	<h1>Host</h1>
+	<div th:if="${hosts==null || hosts.isEmpty()}">Non ci sono host nel sistema</div>
+	<ul>
+		<li th:each="host : ${hosts}">
+			<a th:href="@{'host' + '/' + ${host.id}}" th:text="${host.name} + ' ' + ${host.surname}">Up!
+				(2000)</a>
+		</li>
+	</ul>
+</body>
+
+</html>  

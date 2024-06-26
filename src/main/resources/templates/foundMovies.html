@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Film Trovati</title>
+<link rel="stylesheet" href="/css/stile.css" />
+</head>
+<body>
+	<h1>Film trovati</h1>
+	<ul>
+		<div th:if="${movies}">
+			<li th:each="movie : ${movies}">
+				<p>
+					Titolo: <span th:text="${movie.title}"></span>
+				</p>
+				<p>
+					Anno: <span th:text="${movie.year}"></span>
+				</p>
+				<p>
+					<img width="15%" th:src=${movie.urlImage} />
+				</p>
+			</li>
+		</div>
+		<div th:unless="${movies}">
+			<li>Nessun film trovato</li>
+		</div>
+	</ul>
+</body>
+</html>
