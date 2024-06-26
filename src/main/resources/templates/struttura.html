@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Struttura</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
+	<h1>Dettagli Struttura</h1>
+	<div th:if="${struttura}">
+		<span th:text="${struttura.name}">Up!</span>
+		<span th:text="'(' + ${struttura.city} + ')'">2000</span>
+	</div>
+	<div th:unless="${struttura}">Non esiste</div>
+</body>
+
+</html>

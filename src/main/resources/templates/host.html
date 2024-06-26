@@ -13,8 +13,6 @@
 		<span th:text="${host.name}">Up!</span>
 		<!--<span>Up!</span> -->
 		<span th:text="${host.surname}">Up!</span>
-		<span th:text="'(' + ${host.birthDate} + ')'">2000</span>
-		<span><img width="25%" th:src=${host.urlImage} /></span>
 	</div>
 	<div th:unless="${host}">Non esiste</div>
 </body>

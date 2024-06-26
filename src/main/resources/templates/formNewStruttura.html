@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>New Movie</title>
+<link rel="stylesheet" href="/stile.css?version=3" />
+</head>
+<body>
+	<div>
+		<a href="/"><img src="/logo-siw.png" width="50%" /></a>
+	</div>
+	<h1>Aggiungi una Struttura</h1>
+	<form th:action="@{/struttura}" method="POST" th:object="${struttura}">
+		<div>
+			<span th:text="${messaggioErrore}">Errore</span>
+		</div>
+		<div>
+			Nome: <span><input required type="text"
+				th:field="${struttura.name}" /></span>
+		</div>
+		<div>
+			Citta : <span><input required type="text"
+				th:field="${struttura.city}" /></span>
+		</div>
+		<div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+	</form>
+</body>
+</html>

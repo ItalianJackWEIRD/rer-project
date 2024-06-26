@@ -16,6 +16,7 @@ public class Struttura {
 	@GeneratedValue( strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
+	private String city;
 	
 	@ManyToOne
 	@JoinColumn(name="proprietario")
@@ -60,5 +61,13 @@ public class Struttura {
 			return false;
 		Struttura other = (Struttura) obj;
 		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}	
 }

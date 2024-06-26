@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Strutture</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
+	<h1>Strutture</h1>
+	<div th:if="${strutture==null || strutture.isEmpty()}">Non ci sono strutture nel sistema</div>
+	<ul>
+		<li th:each="struttura : ${strutture}">
+			<a th:href="@{'/struttura' + '/' + ${struttura.id}}" th:text="${struttura.name} + ' (' + ${struttura.city} + ')'">Up!
+				(2000)</a>
+		</li>
+	</ul>
+</body>
+
+</html>

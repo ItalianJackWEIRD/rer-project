@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cerca Strutture</title>
+<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+	<h1>Cerca Strutture nella tua città</h1>
+	<form th:action="@{/searchStrutture}" method="post">
+		<div>
+			Città: <input type="text" th:value="${city}" name="city" />
+		</div>
+		<div>
+			<input type="submit" />
+		</div>
+	</form>
+</body>
+</html>
