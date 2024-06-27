@@ -12,8 +12,12 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     
-    public User findUserById(Long id) {
+    public User findById(Long id) {
         return this.userRepository.findById(id).get();
+    }
+    
+    public User findByUsername(String username) {
+        return this.userRepository.findByUsername(username);
     }
 
     public void save(User user) {
