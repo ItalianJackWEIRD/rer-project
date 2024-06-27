@@ -21,6 +21,7 @@ public class Host {
 	private Long id;
 	private String name;
 	private String surname;
+	private String urlImage;
 	
 	@OneToMany(mappedBy = "host", cascade = CascadeType.ALL)
 	private List<Struttura> caseAffitto;
@@ -47,6 +48,14 @@ public class Host {
 	}
 	public void setSurname(String surname) {
 		this.surname = surname;
+	}
+	
+	public String getUrlImage() {
+		return this.urlImage;
+	}
+	
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
 	}
 	
 	@Override 

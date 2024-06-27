@@ -17,6 +17,7 @@ public class Struttura {
 	private Long id;
 	private String name;
 	private String city;
+	private String urlImage;
 	
 	@ManyToOne
 	@JoinColumn(name="proprietario")
@@ -46,6 +47,15 @@ public class Struttura {
 	public void setHost(Host host) {
 		this.host = host;
 	}
+	
+	public String getUrlImage() {
+		return this.urlImage;
+	}
+	
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, name);

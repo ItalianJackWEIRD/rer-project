@@ -12,6 +12,7 @@
 	<div th:if="${struttura}">
 		<span th:text="${struttura.name}">Up!</span>
 		<span th:text="'(' + ${struttura.city} + ')'">2000</span>
+		<span><img width="15%" th:src=${struttura.urlImage} /></span>
 	</div>
 	<div th:unless="${struttura}">Non esiste</div>
 </body>
