@@ -18,6 +18,9 @@
 				<p>
 					Città: <span th:text="${struttura.city}"></span>
 				</p>
+				<p>
+					<img width="15%" th:src=${struttura.urlImage} />
+				</p>
 			</li>
 		</div>
 		<div th:unless="${strutture}">
