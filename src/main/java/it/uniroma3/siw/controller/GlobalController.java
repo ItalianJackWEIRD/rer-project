@@ -19,7 +19,6 @@ public class GlobalController {
     @Autowired
     private CredentialService credentialsService;
 
-
     @ModelAttribute("userDetails")
     public UserDetails getUser() {
         UserDetails user = null;
@@ -30,7 +29,6 @@ public class GlobalController {
         }
         return user;
     }
-
 
     @ModelAttribute("credenziali")
     public Optional<Credential> getCredential() {

@@ -1,6 +1,5 @@
 package it.uniroma3.siw.authentication;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,13 +19,12 @@ import static it.uniroma3.siw.model.auth.Credential.UTENTE_HOST;
 
 @Configuration
 @EnableWebSecurity
-
 public class AuthConfiguration {
- @Autowired
+
+    @Autowired
     private DataSource dataSource;
 
-
- @Autowired
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
@@ -34,28 +32,30 @@ public class AuthConfiguration {
                 .usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username=?");
     }
 
-
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @SuppressWarnings("removal")
     @Bean
-    protected SecurityFilterChain configure(final HttpSecurity httpSecurity)
-            throws Exception{
+    protected SecurityFilterChain configure(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf().and().cors().disable()
+                .csrf().disable()
                 .authorizeHttpRequests()
-                // .requestMatchers("/**").permitAll()
-                // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
-                .requestMatchers(HttpMethod.GET,"/","/index","/register","/css/**", "/static/**", "favicon.ico", "/searchChefs", "/chef/**", "/recipes", "/recipe/**" , "/register" , "/Images/**").permitAll()
-                // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register
-                .requestMatchers(HttpMethod.POST,"/register", "/login").permitAll()
-                .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority(UTENTE_ADMIN)
-                .requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority(UTENTE_ADMIN)
-                .requestMatchers(HttpMethod.GET,"/chef/**").hasAnyAuthority(UTENTE_HOST, UTENTE_ADMIN)
-                .requestMatchers(HttpMethod.POST,"/chef/**").hasAnyAuthority(UTENTE_HOST, UTENTE_ADMIN)
+                // chiunque (autenticato o no) può accedere alle pagine index, login, register,
+                // ai css e alle immagini
+                .requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/css/**",
+                        "/static/**", "/favicon.ico",
+                        "/formSearchStrutture", "/host/**", "/hosts", "/strutture", "/struttura/**", "/Images/**")
+                .permitAll()
+                // chiunque (autenticato o no) può mandare richieste POST al punto di accesso
+                // per login e register
+                .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
+                .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(UTENTE_ADMIN)
+                .requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(UTENTE_ADMIN)
+                .requestMatchers(HttpMethod.GET, "/host/**").hasAnyAuthority(UTENTE_HOST, UTENTE_ADMIN)
+                .requestMatchers(HttpMethod.POST, "/host/**").hasAnyAuthority(UTENTE_HOST, UTENTE_ADMIN)
                 // tutti gli utenti autenticati possono accere alle pagine rimanenti
                 .anyRequest().authenticated()
                 // LOGIN: qui definiamo il login

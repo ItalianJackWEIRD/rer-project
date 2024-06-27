@@ -2,6 +2,7 @@
 <html>
 
 <head>
+	<meta charset="UTF-8">
 	<title>Strutture</title>
 	<link rel="stylesheet" href="/css/stile.css" />
 </head>
@@ -12,7 +13,8 @@
 	<div th:if="${strutture==null || strutture.isEmpty()}">Non ci sono strutture nel sistema</div>
 	<ul>
 		<li th:each="struttura : ${strutture}">
-			<a th:href="@{'/struttura' + '/' + ${struttura.id}}" th:text="${struttura.name} + ' (' + ${struttura.city} + ')'">Up!
+			<a th:href="@{'/struttura' + '/' + ${struttura.id}}"
+				th:text="${struttura.name} + ' (' + ${struttura.city} + ')'">Up!
 				(2000)</a>
 		</li>
 	</ul>

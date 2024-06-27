@@ -28,20 +28,21 @@ public class AuthenticationController {
     private UserService userService;
 
     @GetMapping(value = "/register")
-    public String showRegisterForm (Model model) {
+    public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("credentials", new Credential());
-        return "formRegisterUser";
+        return "formRegisterUser.html";
     }
 
     @GetMapping(value = "/login")
-    public String showLoginForm (Model model) {
+    public String showLoginForm(Model model) {
         return "login.html";
     }
 
     @GetMapping(value = "/")
     public String index(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // Authentication authentication =
+        // SecurityContextHolder.getContext().getAuthentication(); //diooooo
 
         return "index.html";
     }
@@ -49,7 +50,7 @@ public class AuthenticationController {
     @GetMapping(value = "/success")
     public String defaultAfterLogin(Model model) {
 
-        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Credential> credentials = credentialService.getCredentialByUsername(userDetails.getUsername());
 
         return "index.html";
@@ -57,13 +58,13 @@ public class AuthenticationController {
 
     @PostMapping(value = { "/register" })
     public String registerUser(@ModelAttribute("user") User user,
-                               BindingResult userBindingResult,
-                               
-                               @ModelAttribute("credentials") Credential credentials,
-                               BindingResult credentialsBindingResult,
-                               Model model) {
+            BindingResult userBindingResult,
 
-         if(!userBindingResult.hasErrors() && ! credentialsBindingResult.hasErrors()) {
+            @ModelAttribute("credentials") Credential credentials,
+            BindingResult credentialsBindingResult,
+            Model model) {
+
+        if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             userService.save(user);
             credentials.setUser(user);
 

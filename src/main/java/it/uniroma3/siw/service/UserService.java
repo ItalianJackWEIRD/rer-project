@@ -8,16 +8,16 @@ import it.uniroma3.siw.repository.UserRepository;
 
 @Service
 public class UserService {
-    
+
     @Autowired
     private UserRepository userRepository;
-    
+
     public User findById(Long id) {
         return this.userRepository.findById(id).get();
     }
-    
-    public User findByUsername(String username) {
-        return this.userRepository.findByUsername(username);
+
+    public User findByNome(String nome) {
+        return this.userRepository.findByNome(nome);
     }
 
     public void save(User user) {

@@ -2,8 +2,9 @@
 <html>
 
 <head>
-<title>Real Estate Roma - Homepage</title>
-<link rel="stylesheet" href="/css/stile.css" />
+	<meta charset="UTF-8">
+	<title>Real Estate Roma - Homepage</title>
+	<link rel="stylesheet" href="/css/stile.css" />
 </head>
 
 <body>
@@ -12,17 +13,22 @@
 	</div>
 	<h1>Consulta</h1>
 	<div>
+		<a href="/login" th:unless="${userDetails}">Login</a>
+		<a href="/register" th:unless="${userDetails}">Registrati</a>
+	</div>
+	<div>
 		<a href="/struttura">Strutture</a>
 	</div>
 	<div>
 		<a href="/host">Host</a>
 	</div>
 	<div>
-		<a href="/formNewStruttura">Inserisci Struttura</a>
+		<a href="/formNewStruttura">Inserisci Struttura (solo host) </a>
 	</div>
-	<div>
-		<a href="/formNewHost">Inserisci Host</a>
+	<!---	<div>
+		<a href="/formNewHost">Inserisci Host (REGISTRATI) </a>
 	</div>
+-->
 	<div>
 		<a href="/formSearchStrutture">Cerca Strutture per città</a>
 	</div>
