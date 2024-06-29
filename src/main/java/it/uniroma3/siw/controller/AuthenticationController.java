@@ -31,7 +31,7 @@ public class AuthenticationController {
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("credentials", new Credential());
-        return "formRegisterUser.html";
+        return "register.html";
     }
 
     @GetMapping(value = "/login")
@@ -74,6 +74,6 @@ public class AuthenticationController {
 
             return "redirect:/";
         }
-        return "formRegisterUser.html";
+        return "register.html";
     }
 }
