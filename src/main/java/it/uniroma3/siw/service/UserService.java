@@ -16,8 +16,8 @@ public class UserService {
         return this.userRepository.findById(id).get();
     }
 
-    public User findByNome(String nome) {
-        return this.userRepository.findByNome(nome);
+    public User findByNome(String name) {
+        return this.userRepository.findByName(name);
     }
 
     public void save(User user) {

@@ -74,6 +74,6 @@ public class AuthenticationController {
 
             return "redirect:/";
         }
-        return "formRegisterUser";
+        return "formRegisterUser.html";
     }
 }

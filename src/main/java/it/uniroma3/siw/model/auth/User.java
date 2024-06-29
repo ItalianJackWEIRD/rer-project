@@ -4,15 +4,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nome;
-    private String cognome;
-
+    private String name;
+    private String surname;
 
     public Long getId() {
         return id;
@@ -22,20 +23,20 @@ public class User {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getname() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setname(String name) {
+        this.name = name;
     }
 
-    public String getCognome() {
-        return cognome;
+    public String getsurname() {
+        return surname;
     }
 
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
+    public void setsurname(String surname) {
+        this.surname = surname;
     }
 
     @Override
@@ -43,8 +44,8 @@ public class User {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-        result = prime * result + ((cognome == null) ? 0 : cognome.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((surname == null) ? 0 : surname.hashCode());
         return result;
     }
 
@@ -62,15 +63,15 @@ public class User {
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (nome == null) {
-            if (other.nome != null)
+        if (name == null) {
+            if (other.name != null)
                 return false;
-        } else if (!nome.equals(other.nome))
+        } else if (!name.equals(other.name))
             return false;
-        if (cognome == null) {
-            if (other.cognome != null)
+        if (surname == null) {
+            if (other.surname != null)
                 return false;
-        } else if (!cognome.equals(other.cognome))
+        } else if (!surname.equals(other.surname))
             return false;
         return true;
     }
