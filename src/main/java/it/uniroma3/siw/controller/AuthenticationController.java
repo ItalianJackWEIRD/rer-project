@@ -3,9 +3,9 @@ package it.uniroma3.siw.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +26,9 @@ public class AuthenticationController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping(value = "/register")
     public String showRegisterForm(Model model) {
@@ -67,7 +70,7 @@ public class AuthenticationController {
         if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             userService.save(user);
             credentials.setUser(user);
-
+            credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
             credentials.setRuolo(Credential.UTENTE_GENERICO);
             credentialService.save(credentials);
             model.addAttribute("user", user);
