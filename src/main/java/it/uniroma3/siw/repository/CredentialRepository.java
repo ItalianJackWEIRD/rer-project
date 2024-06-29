@@ -4,9 +4,9 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-import it.uniroma3.siw.model.auth.Credential;
+import it.uniroma3.siw.model.auth.Credentials;
 
-public interface CredentialRepository extends CrudRepository<Credential, Long> {
-    
-    public Optional<Credential> findByUsername(String username);
+public interface CredentialRepository extends CrudRepository<Credentials, Long> {
+
+    public Optional<Credentials> findByUsername(String username);
 }

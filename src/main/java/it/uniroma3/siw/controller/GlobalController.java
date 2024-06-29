@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import it.uniroma3.siw.model.auth.Credential;
+import it.uniroma3.siw.model.auth.Credentials;
 import it.uniroma3.siw.service.CredentialService;
 
 @ControllerAdvice
@@ -30,14 +30,14 @@ public class GlobalController {
         return user;
     }
 
-    @ModelAttribute("credenziali")
-    public Optional<Credential> getCredential() {
+    @ModelAttribute("credentials")
+    public Optional<Credentials> getCredential() {
         UserDetails user = null;
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            Optional<Credential> credentials = credentialsService.getCredentialByUsername(user.getUsername());
+            Optional<Credentials> credentials = credentialsService.getCredentialByUsername(user.getUsername());
             return credentials;
         }
         return null;

@@ -3,7 +3,6 @@ package it.uniroma3.siw.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import it.uniroma3.siw.model.auth.Credential;
+import it.uniroma3.siw.model.auth.Credentials;
 import it.uniroma3.siw.model.auth.User;
 import it.uniroma3.siw.service.CredentialService;
 import it.uniroma3.siw.service.UserService;
@@ -30,8 +29,8 @@ public class AuthenticationController {
     @GetMapping(value = "/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("credentials", new Credential());
-        return "formRegisterUser.html";
+        model.addAttribute("credentials", new Credentials());
+        return "register.html";
     }
 
     @GetMapping(value = "/login")
@@ -51,7 +50,7 @@ public class AuthenticationController {
     public String defaultAfterLogin(Model model) {
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<Credential> credentials = credentialService.getCredentialByUsername(userDetails.getUsername());
+        Optional<Credentials> credentials = credentialService.getCredentialByUsername(userDetails.getUsername());
 
         return "index.html";
     }
@@ -60,7 +59,7 @@ public class AuthenticationController {
     public String registerUser(@ModelAttribute("user") User user,
             BindingResult userBindingResult,
 
-            @ModelAttribute("credentials") Credential credentials,
+            @ModelAttribute("credentials") Credentials credentials,
             BindingResult credentialsBindingResult,
             Model model) {
 
@@ -68,12 +67,12 @@ public class AuthenticationController {
             userService.save(user);
             credentials.setUser(user);
 
-            credentials.setRuolo(Credential.UTENTE_GENERICO);
+            credentials.setRuolo(Credentials.UTENTE_GENERICO);
             credentialService.save(credentials);
             model.addAttribute("user", user);
 
             return "redirect:/";
         }
-        return "formRegisterUser";
+        return "register.html";
     }
 }
