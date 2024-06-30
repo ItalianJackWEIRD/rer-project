@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -8,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Prenotazione {
@@ -21,18 +24,20 @@ public class Prenotazione {
     private String cognome;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDateTime dataPrenotazione;
+    private LocalDate dataPrenotazione;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDateTime checkIn;
+    private LocalDate checkIn;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDateTime checkOut;
+    private LocalDate checkOut;
 
     private int guests;
 
     private String descrizione;
 
+    @ManyToOne
+    @JoinColumn(name = "struttura_id")
     private Struttura struttura;
 
     public Long getId() {
@@ -59,27 +64,27 @@ public class Prenotazione {
         this.cognome = cognome;
     }
 
-    public LocalDateTime getDataPrenotazione() {
+    public LocalDate getDataPrenotazione() {
         return dataPrenotazione;
     }
 
-    public void setDataPrenotazione(LocalDateTime dataPrenotazione) {
+    public void setDataPrenotazione(LocalDate dataPrenotazione) {
         this.dataPrenotazione = dataPrenotazione;
     }
 
-    public LocalDateTime getCheckIn() {
+    public LocalDate getCheckIn() {
         return checkIn;
     }
 
-    public void setCheckIn(LocalDateTime checkIn) {
+    public void setCheckIn(LocalDate checkIn) {
         this.checkIn = checkIn;
     }
 
-    public LocalDateTime getCheckOut() {
+    public LocalDate getCheckOut() {
         return checkOut;
     }
 
-    public void setCheckOut(LocalDateTime checkOut) {
+    public void setCheckOut(LocalDate checkOut) {
         this.checkOut = checkOut;
     }
 

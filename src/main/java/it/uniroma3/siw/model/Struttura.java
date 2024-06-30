@@ -1,6 +1,6 @@
 package it.uniroma3.siw.model;
 
-import java.util.Objects;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Struttura {
@@ -23,6 +24,9 @@ public class Struttura {
 	@JoinColumn(name="proprietario")
 	private Host host;
 
+	@OneToMany(mappedBy = "struttura")
+    private List<Prenotazione> prenotazioni;
+
 	public Long getId() {
 		return id;
 	}
@@ -35,9 +39,24 @@ public class Struttura {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
 	}
 
 	public Host getHost() {
@@ -47,20 +66,24 @@ public class Struttura {
 	public void setHost(Host host) {
 		this.host = host;
 	}
-	
-	public String getUrlImage() {
-		return this.urlImage;
+
+	public List<Prenotazione> getPrenotazioni() {
+		return prenotazioni;
 	}
-	
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
+
+	public void setPrenotazioni(List<Prenotazione> prenotazioni) {
+		this.prenotazioni = prenotazioni;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -70,14 +93,18 @@ public class Struttura {
 		if (getClass() != obj.getClass())
 			return false;
 		Struttura other = (Struttura) obj;
-		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (city == null) {
+			if (other.city != null)
+				return false;
+		} else if (!city.equals(other.city))
+			return false;
+		return true;
 	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}	
+	
+	
 }
