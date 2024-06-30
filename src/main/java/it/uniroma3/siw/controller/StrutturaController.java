@@ -92,6 +92,7 @@ public class StrutturaController {
 		Struttura struttura = this.strutturaService.findById(id);
 		prenotazione.setStruttura(struttura);
 		prenotazioneService.save(prenotazione);
+		model.addAttribute("prenotazione", prenotazione);
 		//struttura.addPrenotazione(prenotazione);
 
 		return "prenotazioneStruttura.html";
