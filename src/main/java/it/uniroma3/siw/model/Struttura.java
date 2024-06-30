@@ -56,11 +56,11 @@ public class Struttura {
 		this.city = city;
 	}
 
-	public String getPathImage() {
+	public String getpathImage() {
 		return pathImage;
 	}
 
-	public void setPathImage(String pathImage) {
+	public void setpathImage(String pathImage) {
 		this.pathImage = pathImage;
 	}
 
@@ -80,9 +80,9 @@ public class Struttura {
 	// this.prenotazioni = prenotazioni;
 	// }
 
-	//public void addPrenotazione(Prenotazione prenotazione) {
-	//	this.prenotazioni.add(prenotazione);
-	//}
+	// public void addPrenotazione(Prenotazione prenotazione) {
+	// this.prenotazioni.add(prenotazione);
+	// }
 
 	@Override
 	public int hashCode() {

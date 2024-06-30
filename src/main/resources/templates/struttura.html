@@ -8,18 +8,18 @@
 </head>
 
 <body>
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
+	<div><a href="/"><img src="/images/logo-rer.png" width="30%" /></a></div>
 	<h1>Dettagli Struttura</h1>
 	<div th:if="${struttura}">
 		<span th:text="${struttura.name}"></span>
 		<span th:text="'(' + ${struttura.city} + ')'"></span>
-		<span><img width="15%" th:src=${struttura.pathImage} /></span>
+		<span><img width="15%" src="${struttura.pathImage}" /></span>
 	</div>
 	<div>
 		<a th:href="@{/struttura/{id}/prenota(id=${struttura.id})}">Prenota questa struttura</a>
 	</div>
 	<div th:unless="${struttura}">Non esiste</div>
-	
+
 </body>
 
 </html>
