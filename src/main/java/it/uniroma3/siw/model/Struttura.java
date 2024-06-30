@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -12,20 +13,24 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Struttura {
-	
+
 	@Id
-	@GeneratedValue( strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
 	private String city;
 	private String urlImage;
-	
+
 	@ManyToOne
-	@JoinColumn(name="proprietario")
+	@JoinColumn(name = "proprietario")
 	private Host host;
 
-	@OneToMany(mappedBy = "struttura")
-    private List<Prenotazione> prenotazioni;
+	// @OneToMany(mappedBy = "struttura")
+	// private List<Prenotazione> prenotazioni;
+
+	// public Struttura() {
+	// this.prenotazioni = new ArrayList<>();
+	// }
 
 	public Long getId() {
 		return id;
@@ -67,13 +72,17 @@ public class Struttura {
 		this.host = host;
 	}
 
-	public List<Prenotazione> getPrenotazioni() {
-		return prenotazioni;
-	}
+	// public List<Prenotazione> getPrenotazioni() {
+	// return prenotazioni;
+	// }
+	//
+	// public void setPrenotazioni(List<Prenotazione> prenotazioni) {
+	// this.prenotazioni = prenotazioni;
+	// }
 
-	public void setPrenotazioni(List<Prenotazione> prenotazioni) {
-		this.prenotazioni = prenotazioni;
-	}
+	//public void addPrenotazione(Prenotazione prenotazione) {
+	//	this.prenotazioni.add(prenotazione);
+	//}
 
 	@Override
 	public int hashCode() {
@@ -105,6 +114,5 @@ public class Struttura {
 			return false;
 		return true;
 	}
-	
-	
+
 }

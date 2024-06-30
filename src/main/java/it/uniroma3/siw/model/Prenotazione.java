@@ -18,7 +18,7 @@ public class Prenotazione {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     private String nome;
 
     private String cognome;
@@ -35,6 +35,16 @@ public class Prenotazione {
     private int guests;
 
     private String descrizione;
+
+    private String nomeCasa;
+
+    public String getNomeCasa() {
+        return nomeCasa;
+    }
+
+    public void setNomeCasa(String nomeCasa) {
+        this.nomeCasa = nomeCasa;
+    }
 
     @ManyToOne
     @JoinColumn(name = "struttura_id")
@@ -161,7 +171,4 @@ public class Prenotazione {
         return true;
     }
 
-    
-    
-    
 }

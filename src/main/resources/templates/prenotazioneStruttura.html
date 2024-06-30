@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Dettagli Prenotazione</title>
+    <style>
+        .receipt-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .receipt-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .receipt-container p {
+            margin: 5px 0;
+        }
+
+        .receipt-container span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="receipt-container">
+        <h1>Dettagli Prenotazione</h1>
+        <p><span>ID Prenotazione:</span> <span th:text="${prenotazione.id}"></span></p>
+        <p><span>Nome:</span> <span th:text="${prenotazione.nome}"></span></p>
+        <p><span>Cognome:</span> <span th:text="${prenotazione.cognome}"></span></p>
+        <p><span>Data Prenotazione:</span> <span th:text="${prenotazione.dataPrenotazione}"></span></p>
+        <p><span>Check-In:</span> <span th:text="${prenotazione.checkIn}"></span></p>
+        <p><span>Check-Out:</span> <span th:text="${prenotazione.checkOut}"></span></p>
+        <p><span>Numero di Ospiti:</span> <span th:text="${prenotazione.guests}"></span></p>
+        <p><span>Descrizione:</span> <span th:text="${prenotazione.descrizione}"></span></p>
+        <p><span>Nome Struttura:</span> <span th:text="${prenotazione.nomeCasa}"></span></p>
+    </div>
+</body>
+
+</html>

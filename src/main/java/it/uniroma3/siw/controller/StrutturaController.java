@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,9 +57,10 @@ public class StrutturaController {
 	@PostMapping("/struttura")
 	public String newStruttura(@ModelAttribute("struttura") Struttura struttura, Model model) {
 		if (!strutturaRepository.existsByNameAndCity(struttura.getName(), struttura.getCity())) {
-			//String name = globalController.getCredential().get().getUser().getName();
-			//String surname = globalController.getCredential().get().getUser().getSurname();
-			//struttura.setHost(hostService.findByNameAndSurname(name, surname));
+			// String name = globalController.getCredential().get().getUser().getName();
+			// String surname =
+			// globalController.getCredential().get().getUser().getSurname();
+			// struttura.setHost(hostService.findByNameAndSurname(name, surname));
 			this.strutturaService.save(struttura);
 			model.addAttribute("struttura", struttura);
 			return "redirect:/struttura/" + struttura.getId();
@@ -78,7 +81,6 @@ public class StrutturaController {
 		return "foundStrutture.html";
 	}
 
-
 	@GetMapping("/struttura/{id}/prenota")
 	public String prenotaStruttura(@PathVariable("id") Long id, Model model) {
 		Struttura struttura = this.strutturaService.findById(id);
@@ -88,15 +90,26 @@ public class StrutturaController {
 	}
 
 	@PostMapping("/struttura/{id}/prenota")
-	public String prenotaStruttura(@PathVariable("id") Long id, @ModelAttribute("prenotazione") Prenotazione prenotazione, Model model) {
+	public String prenotaStruttura(@PathVariable("id") Long id,
+			@ModelAttribute("prenotazione") Prenotazione prenotazione, Model model) {
 		Struttura struttura = this.strutturaService.findById(id);
 		prenotazione.setStruttura(struttura);
+		prenotazione.setNomeCasa(struttura.getName());
+		prenotazione.setDataPrenotazione(LocalDate.now());
 		prenotazioneService.save(prenotazione);
 		model.addAttribute("prenotazione", prenotazione);
-		//struttura.addPrenotazione(prenotazione);
+		// struttura.addPrenotazione(prenotazione);
 
+		return "redirect:/struttura/" + struttura.getId() + "/prenotazione/" + prenotazione.getId();
+
+	}
+
+	@GetMapping("/struttura/{strutturaId}/prenotazione/{prenotazioneId}")
+	public String visualizzaPrenotazione(@PathVariable("strutturaId") Long strutturaId,
+			@PathVariable("prenotazioneId") Long prenotazioneId, Model model) {
+		Prenotazione prenotazione = this.prenotazioneService.findById(prenotazioneId);
+		model.addAttribute("prenotazione", prenotazione);
 		return "prenotazioneStruttura.html";
-
 	}
 
 }
