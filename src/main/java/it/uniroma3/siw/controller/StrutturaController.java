@@ -80,8 +80,10 @@ public class StrutturaController {
 
 
 	@GetMapping("/struttura/{id}/prenota")
-	public String prenotaStruttura(Model model) {
+	public String prenotaStruttura(@PathVariable("id") Long id, Model model) {
+		Struttura struttura = this.strutturaService.findById(id);
 		model.addAttribute("prenotazione", new Prenotazione());
+		model.addAttribute("struttura", struttura);
 		return "formPrenotaStruttura.html";
 	}
 
@@ -90,7 +92,8 @@ public class StrutturaController {
 		Struttura struttura = this.strutturaService.findById(id);
 		prenotazione.setStruttura(struttura);
 		prenotazioneService.save(prenotazione);
-		
+		//struttura.addPrenotazione(prenotazione);
+
 		return "prenotazioneStruttura.html";
 
 	}
