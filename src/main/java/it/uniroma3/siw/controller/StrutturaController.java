@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Struttura;
+import it.uniroma3.siw.model.auth.User;
 import it.uniroma3.siw.repository.StrutturaRepository;
+import it.uniroma3.siw.service.HostService;
 import it.uniroma3.siw.service.StrutturaService;
 
 @Controller
@@ -19,8 +22,14 @@ public class StrutturaController {
 	@Autowired
 	private StrutturaService strutturaService;
 
-	@Autowired 
+	@Autowired
+	private HostService hostService;
+
+	@Autowired
 	private StrutturaRepository strutturaRepository;
+
+	@Autowired
+	private GlobalController globalController;
 
 	@GetMapping("/struttura/{id}")
 	public String getStruttura(@PathVariable("id") Long id, Model model) {
@@ -28,7 +37,7 @@ public class StrutturaController {
 		return "struttura.html";
 	}
 
-	@GetMapping("/struttura")		//SENZA S
+	@GetMapping("/struttura") // SENZA S
 	public String getStrutture(Model model) {
 		model.addAttribute("strutture", this.strutturaService.findAll());
 		return "strutture.html";
@@ -42,15 +51,17 @@ public class StrutturaController {
 
 	@PostMapping("/struttura")
 	public String newStruttura(@ModelAttribute("struttura") Struttura struttura, Model model) {
-		if(!strutturaRepository.existsByNameAndCity(struttura.getName(), struttura.getCity())) {
+		if (!strutturaRepository.existsByNameAndCity(struttura.getName(), struttura.getCity())) {
+			//String name = globalController.getCredential().get().getUser().getName();
+			//String surname = globalController.getCredential().get().getUser().getSurname();
+			//struttura.setHost(hostService.findByNameAndSurname(name, surname));
 			this.strutturaService.save(struttura);
 			model.addAttribute("struttura", struttura);
 			return "redirect:/struttura/" + struttura.getId();
-		}
-		else {
+		} else {
 			model.addAttribute("messaggioErrore", "Questo film esiste già");
 			return "formNewstruttura.html";
-		}			
+		}
 	}
 
 	@GetMapping("/formSearchStrutture")
