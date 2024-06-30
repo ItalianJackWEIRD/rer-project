@@ -57,15 +57,14 @@ public class StrutturaController {
 	@PostMapping("/struttura")
 	public String newStruttura(@ModelAttribute("struttura") Struttura struttura, Model model) {
 		if (!strutturaRepository.existsByNameAndCity(struttura.getName(), struttura.getCity())) {
-			// String name = globalController.getCredential().get().getUser().getName();
-			// String surname =
-			// globalController.getCredential().get().getUser().getSurname();
-			// struttura.setHost(hostService.findByNameAndSurname(name, surname));
+			//String name = globalController.getCredential().get().getUser().getName();
+			//String surname = globalController.getCredential().get().getUser().getSurname();
+			//struttura.setHost(hostService.findByNameAndSurname(name, surname));
 			this.strutturaService.save(struttura);
 			model.addAttribute("struttura", struttura);
 			return "redirect:/struttura/" + struttura.getId();
 		} else {
-			model.addAttribute("messaggioErrore", "Questo film esiste già");
+			model.addAttribute("messaggioErrore", "Questa struttura esiste già");
 			return "formNewstruttura.html";
 		}
 	}
@@ -81,6 +80,7 @@ public class StrutturaController {
 		return "foundStrutture.html";
 	}
 
+
 	@GetMapping("/struttura/{id}/prenota")
 	public String prenotaStruttura(@PathVariable("id") Long id, Model model) {
 		Struttura struttura = this.strutturaService.findById(id);
@@ -90,26 +90,15 @@ public class StrutturaController {
 	}
 
 	@PostMapping("/struttura/{id}/prenota")
-	public String prenotaStruttura(@PathVariable("id") Long id,
-			@ModelAttribute("prenotazione") Prenotazione prenotazione, Model model) {
+	public String prenotaStruttura(@PathVariable("id") Long id, @ModelAttribute("prenotazione") Prenotazione prenotazione, Model model) {
 		Struttura struttura = this.strutturaService.findById(id);
 		prenotazione.setStruttura(struttura);
-		prenotazione.setNomeCasa(struttura.getName());
 		prenotazione.setDataPrenotazione(LocalDate.now());
 		prenotazioneService.save(prenotazione);
 		model.addAttribute("prenotazione", prenotazione);
-		// struttura.addPrenotazione(prenotazione);
-
-		return "redirect:/struttura/" + struttura.getId() + "/prenotazione/" + prenotazione.getId();
-
-	}
-
-	@GetMapping("/struttura/{strutturaId}/prenotazione/{prenotazioneId}")
-	public String visualizzaPrenotazione(@PathVariable("strutturaId") Long strutturaId,
-			@PathVariable("prenotazioneId") Long prenotazioneId, Model model) {
-		Prenotazione prenotazione = this.prenotazioneService.findById(prenotazioneId);
-		model.addAttribute("prenotazione", prenotazione);
+		
 		return "prenotazioneStruttura.html";
+
 	}
 
 }

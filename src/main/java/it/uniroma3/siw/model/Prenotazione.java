@@ -1,10 +1,10 @@
 package it.uniroma3.siw.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,6 +35,12 @@ public class Prenotazione {
     private int guests;
 
     private String descrizione;
+
+    @Column(nullable = false)
+    private String cellulare;
+    
+    @Column(nullable = false)
+    private String email;
 
     private String nomeCasa;
 
@@ -114,6 +120,22 @@ public class Prenotazione {
         this.descrizione = descrizione;
     }
 
+    public String getCellulare() {
+        return cellulare;
+    }
+
+    public void setCellulare(String cellulare) {
+        this.cellulare = cellulare;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Struttura getStruttura() {
         return struttura;
     }
@@ -170,5 +192,10 @@ public class Prenotazione {
             return false;
         return true;
     }
+
+    
+
+
+    
 
 }

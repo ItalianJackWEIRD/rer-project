@@ -80,7 +80,7 @@ public class AuthenticationController {
             credentials.setUser(user);
             host.setName(user.getName());
             host.setSurname(user.getSurname());
-            host.setUrlImage(user.getUrlImage());
+            host.setPathImage(user.getPathImage());
             hostService.save(host);
             // credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
             //

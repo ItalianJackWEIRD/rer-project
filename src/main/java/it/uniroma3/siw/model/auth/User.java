@@ -14,14 +14,14 @@ public class User {
     private Long id;
     private String name;
     private String surname;
-    private String urlImage;
+    private String pathImage;
 
-    public String getUrlImage() {
-        return urlImage;
+    public String getPathImage() {
+        return pathImage;
     }
 
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
+    public void setPathImage(String pathImage) {
+        this.pathImage = pathImage;
     }
 
     public Long getId() {

@@ -22,7 +22,7 @@ public class Host {
 	private Long id;
 	private String name;
 	private String surname;
-	private String urlImage;
+	private String pathImage;
 
 	@OneToMany(mappedBy = "host", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Struttura> caseAffitto;
@@ -55,12 +55,12 @@ public class Host {
 		this.surname = surname;
 	}
 
-	public String getUrlImage() {
-		return this.urlImage;
+	public String getPathImage() {
+		return this.pathImage;
 	}
 
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
+	public void setPathImage(String pathImage) {
+		this.pathImage = pathImage;
 	}
 
 	@Override

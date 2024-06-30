@@ -19,7 +19,7 @@ public class Struttura {
 	private Long id;
 	private String name;
 	private String city;
-	private String urlImage;
+	private String pathImage;
 
 	@ManyToOne
 	@JoinColumn(name = "proprietario")
@@ -56,12 +56,12 @@ public class Struttura {
 		this.city = city;
 	}
 
-	public String getUrlImage() {
-		return urlImage;
+	public String getPathImage() {
+		return pathImage;
 	}
 
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
+	public void setPathImage(String pathImage) {
+		this.pathImage = pathImage;
 	}
 
 	public Host getHost() {

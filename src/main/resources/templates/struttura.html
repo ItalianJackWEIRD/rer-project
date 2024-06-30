@@ -13,7 +13,7 @@
 	<div th:if="${struttura}">
 		<span th:text="${struttura.name}"></span>
 		<span th:text="'(' + ${struttura.city} + ')'"></span>
-		<span><img width="15%" th:src=${struttura.urlImage} /></span>
+		<span><img width="15%" th:src=${struttura.pathImage} /></span>
 	</div>
 	<div>
 		<a th:href="@{/struttura/{id}/prenota(id=${struttura.id})}">Prenota questa struttura</a>
