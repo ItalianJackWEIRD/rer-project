@@ -1,7 +1,6 @@
 package it.uniroma3.siw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,10 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.uniroma3.siw.model.Prenotazione;
 import it.uniroma3.siw.model.Struttura;
-import it.uniroma3.siw.model.auth.User;
 import it.uniroma3.siw.repository.StrutturaRepository;
 import it.uniroma3.siw.service.HostService;
+import it.uniroma3.siw.service.PrenotazioneService;
 import it.uniroma3.siw.service.StrutturaService;
 
 @Controller
@@ -30,6 +30,9 @@ public class StrutturaController {
 
 	@Autowired
 	private GlobalController globalController;
+
+	@Autowired
+	private PrenotazioneService prenotazioneService;
 
 	@GetMapping("/struttura/{id}")
 	public String getStruttura(@PathVariable("id") Long id, Model model) {
@@ -73,6 +76,23 @@ public class StrutturaController {
 	public String searchStrutture(Model model, @RequestParam String city) {
 		model.addAttribute("strutture", this.strutturaService.findByCity(city));
 		return "foundStrutture.html";
+	}
+
+
+	@GetMapping("/struttura/{id}/prenota")
+	public String prenotaStruttura(Model model) {
+		model.addAttribute("prenotazione", new Prenotazione());
+		return "formPrenotaStruttura.html";
+	}
+
+	@PostMapping("/struttura/{id}/prenota")
+	public String prenotaStruttura(@PathVariable("id") Long id, @ModelAttribute("prenotazione") Prenotazione prenotazione, Model model) {
+		Struttura struttura = this.strutturaService.findById(id);
+		prenotazione.setStruttura(struttura);
+		prenotazioneService.save(prenotazione);
+		
+		return "prenotazioneStruttura.html";
+
 	}
 
 }

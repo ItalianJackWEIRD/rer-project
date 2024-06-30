@@ -11,11 +11,15 @@
 	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
 	<h1>Dettagli Struttura</h1>
 	<div th:if="${struttura}">
-		<span th:text="${struttura.name}">Up!</span>
-		<span th:text="'(' + ${struttura.city} + ')'">2000</span>
+		<span th:text="${struttura.name}"></span>
+		<span th:text="'(' + ${struttura.city} + ')'"></span>
 		<span><img width="15%" th:src=${struttura.urlImage} /></span>
 	</div>
+	<div>
+		<a href="@{/struttura/{id}/prenota(id=${struttura.id})}">Prenota questa struttura</a>
+	</div>
 	<div th:unless="${struttura}">Non esiste</div>
+	
 </body>
 
 </html>

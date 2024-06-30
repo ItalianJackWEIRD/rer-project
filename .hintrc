@@ -10,6 +10,7 @@
       }
     ],
     "axe/text-alternatives": "off",
-    "meta-viewport": "off"
+    "meta-viewport": "off",
+    "axe/name-role-value": "off"
   }
 }
