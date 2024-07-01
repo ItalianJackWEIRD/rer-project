@@ -57,10 +57,10 @@ public class StrutturaController {
 	@PostMapping("/struttura")
 	public String newStruttura(@ModelAttribute("struttura") Struttura struttura, Model model) {
 		if (!strutturaRepository.existsByNameAndCity(struttura.getName(), struttura.getCity())) {
-			// String name = globalController.getCredential().get().getUser().getName();
-			// String surname =
-			// globalController.getCredential().get().getUser().getSurname();
-			// struttura.setHost(hostService.findByNameAndSurname(name, surname));
+			String name = globalController.getCredential().get().getUser().getName();
+			String surname = globalController.getCredential().get().getUser().getSurname();
+			struttura.setHost(hostService.findByNameAndSurname(name, surname));
+			struttura.setHostId(struttura.getHost().getId());
 			this.strutturaService.save(struttura);
 			model.addAttribute("struttura", struttura);
 			return "redirect:/struttura/" + struttura.getId();

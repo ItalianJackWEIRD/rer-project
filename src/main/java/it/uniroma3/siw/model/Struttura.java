@@ -25,12 +25,22 @@ public class Struttura {
 	@JoinColumn(name = "proprietario")
 	private Host host;
 
+	private Long hostId;
+
 	// @OneToMany(mappedBy = "struttura")
 	// private List<Prenotazione> prenotazioni;
 
 	// public Struttura() {
 	// this.prenotazioni = new ArrayList<>();
 	// }
+
+	public Long getHostId() {
+		return hostId;
+	}
+
+	public void setHostId(Long hostId) {
+		this.hostId = hostId;
+	}
 
 	public Long getId() {
 		return id;
@@ -80,9 +90,9 @@ public class Struttura {
 	// this.prenotazioni = prenotazioni;
 	// }
 
-	//public void addPrenotazione(Prenotazione prenotazione) {
-	//	this.prenotazioni.add(prenotazione);
-	//}
+	// public void addPrenotazione(Prenotazione prenotazione) {
+	// this.prenotazioni.add(prenotazione);
+	// }
 
 	@Override
 	public int hashCode() {
