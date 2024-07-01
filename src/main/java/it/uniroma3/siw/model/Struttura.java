@@ -15,17 +15,15 @@ import jakarta.persistence.OneToMany;
 public class Struttura {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String city;
 	private String urlImage;
 
 	@ManyToOne
-	@JoinColumn(name = "proprietario")
+	@JoinColumn(name = "host_id", nullable = false)
 	private Host host;
-
-	private Long hostId;
 
 	// @OneToMany(mappedBy = "struttura")
 	// private List<Prenotazione> prenotazioni;
@@ -33,14 +31,6 @@ public class Struttura {
 	// public Struttura() {
 	// this.prenotazioni = new ArrayList<>();
 	// }
-
-	public Long getHostId() {
-		return hostId;
-	}
-
-	public void setHostId(Long hostId) {
-		this.hostId = hostId;
-	}
 
 	public Long getId() {
 		return id;

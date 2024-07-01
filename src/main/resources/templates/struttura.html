@@ -16,10 +16,10 @@
 		<span><img width="15%" th:src=${struttura.urlImage} /></span>
 	</div>
 	<div>
-		<a th:href="@{/host/{id}(id=${struttura.hostId})}">Proprietario</a>
+		<a th:href="@{/host/{id}(id=${struttura.host.id})}">Proprietario</a>
 	</div>
 	<div>
-		<a th:href="@{/struttura/{id}/prenota(id=${struttura.id})}">Prenota questa struttura</a>
+		<a th:href="@{/struttura/{id}/prenota(id=${struttura.id})}" target="_blank">Prenota questa struttura</a>
 	</div>
 	<div th:unless="${struttura}">Non esiste</div>
 

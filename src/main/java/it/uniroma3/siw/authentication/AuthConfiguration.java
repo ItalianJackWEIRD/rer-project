@@ -48,7 +48,7 @@ public class AuthConfiguration {
                         // ai css e alle immagini
                         .requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/css/**", "/images/**",
                                 "favicon.ico", "/struttura", "/struttura/**", "/strutture",
-                                "/formSearchStrutture", "/foundStrutture", "/host", "/hosts", "/host/**")
+                                "/formSearchStrutture", "/foundStrutture", "/host", "/hosts", "/host/**", "/error")
                         .permitAll()
                         // chiunque (autenticato o no) può mandare richieste POST al punto di accesso
                         // per login e register

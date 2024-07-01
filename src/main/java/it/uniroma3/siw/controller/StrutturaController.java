@@ -60,7 +60,6 @@ public class StrutturaController {
 			String name = globalController.getCredential().get().getUser().getName();
 			String surname = globalController.getCredential().get().getUser().getSurname();
 			struttura.setHost(hostService.findByNameAndSurname(name, surname));
-			struttura.setHostId(struttura.getHost().getId());
 			this.strutturaService.save(struttura);
 			model.addAttribute("struttura", struttura);
 			return "redirect:/struttura/" + struttura.getId();
@@ -96,7 +95,7 @@ public class StrutturaController {
 		prenotazione.setStruttura(struttura);
 		prenotazione.setNomeCasa(struttura.getName());
 		prenotazione.setDataPrenotazione(LocalDate.now());
-		prenotazioneService.save(prenotazione);
+		prenotazione = prenotazioneService.save(prenotazione);
 		model.addAttribute("prenotazione", prenotazione);
 		// struttura.addPrenotazione(prenotazione);
 

@@ -13,8 +13,8 @@ public class PrenotazioneService {
     private PrenotazioneRepository prenotazioneRepository;
 
 
-    public void save(Prenotazione prenotazione) {
-        prenotazioneRepository.save(prenotazione);
+    public Prenotazione save(Prenotazione prenotazione) {
+        return prenotazioneRepository.save(prenotazione);
     }
 
     public Prenotazione findById(Long id) {
