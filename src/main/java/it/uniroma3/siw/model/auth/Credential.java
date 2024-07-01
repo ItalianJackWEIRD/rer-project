@@ -11,16 +11,16 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 public class Credential {
-    
+
     public static final String UTENTE_GENERICO = "GENERIC";
     public static final String UTENTE_HOST = "HOST";
     public static final String UTENTE_ADMIN = "ADMIN";
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(nullable = false)
+
+    @Column(nullable = false) // @NotBlank
     private String username;
     @Column(nullable = false)
     private String password;
@@ -29,7 +29,6 @@ public class Credential {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
-
 
     public Long getId() {
         return id;
@@ -102,10 +101,10 @@ public class Credential {
         return true;
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////
 
     public boolean isAdmin() {
         return this.ruolo.equals(UTENTE_ADMIN);
     }
-    
+
 }
