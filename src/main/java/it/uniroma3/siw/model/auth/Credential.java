@@ -14,7 +14,6 @@ public class Credential {
 
     public static final String UTENTE_GENERICO = "GENERIC";
     public static final String UTENTE_HOST = "HOST";
-    public static final String UTENTE_ADMIN = "ADMIN";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -102,9 +101,5 @@ public class Credential {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////
-
-    public boolean isAdmin() {
-        return this.ruolo.equals(UTENTE_ADMIN);
-    }
 
 }
