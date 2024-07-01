@@ -24,8 +24,8 @@ public class AuthConfiguration {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .authoritiesByUsernameQuery("SELECT username, role from credentials WHERE username=?")
-                .usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username=?");
+                .authoritiesByUsernameQuery("SELECT username, ruolo FROM credential WHERE username=?")
+                .usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credential WHERE username=?");
     }
 
     @Bean

@@ -69,7 +69,7 @@ public class AuthenticationController {
     public String registerUser(@ModelAttribute("user") User user,
             BindingResult userBindingResult,
 
-            @ModelAttribute("credentials") Credential credentials,
+            @ModelAttribute("credential") Credential credentials,
             BindingResult credentialsBindingResult,
             Model model,
 
