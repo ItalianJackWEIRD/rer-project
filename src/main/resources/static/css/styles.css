@@ -44,6 +44,11 @@ html {
     padding: 20px;
     color: whitesmoke;
     z-index: 10;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    backdrop-filter: blur(30px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
     /* Assicura che la navbar sia sopra tutto */
 }
 
