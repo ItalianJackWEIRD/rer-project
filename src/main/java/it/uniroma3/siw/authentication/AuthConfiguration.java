@@ -53,7 +53,7 @@ public class AuthConfiguration {
                         // chiunque (autenticato o no) può mandare richieste POST al punto di accesso
                         // per login e register
                         .requestMatchers(HttpMethod.POST, "/register", "/login", "/struttura",
-                                "/struttura/**", "/strutture", "/formSearchStrutture", "/foundStrutture", "/host",
+                                "/struttura/**", "/strutture", "/searchStrutture", "/foundStrutture", "/host",
                                 "/hosts", "/host/**")
                         .permitAll()
                         // solo gli utenti autenticati con ruolo HOST possono accedere a risorse con

@@ -2,33 +2,57 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>New Movie</title>
-	<link rel="stylesheet" href="/stile.css?version=3" />
+    <meta charset="UTF-8">
+    <title>Aggiungi una Struttura</title>
+    <link rel="stylesheet" href="/css/stileNewStruttura.css" />
 </head>
 
 <body>
-	<div>
-		<a href="/"><img src="/images/logo-rer.png" width="30%" /></a>
-	</div>
-	<h1>Aggiungi una Struttura</h1>
-	<form th:action="@{/struttura}" method="POST" th:object="${struttura}">
-		<div>
-			<span th:text="${messaggioErrore}">Errore</span>
-		</div>
-		<div>
-			Nome: <span><input required type="text" th:field="${struttura.name}" /></span>
-		</div>
-		<div>
-			Citta : <span><input required type="text" th:field="${struttura.city}" /></span>
-		</div>
-		<div>
-			URL immagine : <span><input type="url" th:field="${struttura.urlImage}" /></span>
-		</div>
-		<div>
-			<span><button type="submit">Conferma</button></span>
-		</div>
-	</form>
+    <nav class="navbar">
+        <a href="/" class="logo">Real Estate Roma</a>
+        <ul class="nav-links">
+            <li class="ctn" th:unless="${userDetails}">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="active" th:unless="${userDetails}">
+                <a class="nav-link" href="/register">Registrati</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/struttura">Strutture</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/host">Host</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/formSearchStrutture">Cerca Strutture nella tua città</a>
+            </li>
+            <li th:if="${userDetails}">
+                <a class="nav-link" href="/formNewStruttura">Inserisci una struttura</a>
+            </li>
+        </ul>
+        <img src="../static/images/menu-btn.png" alt="" class="menu-btn">
+    </nav>
+
+    <div class="container small-container">
+        <h1>Aggiungi una Struttura</h1>
+        <form th:action="@{/struttura}" method="POST" th:object="${struttura}">
+            <div>
+                <span th:text="${messaggioErrore}">Errore</span>
+            </div>
+            <div>
+                Nome: <span><input required type="text" th:field="${struttura.name}" /></span>
+            </div>
+            <div>
+                Citta: <span><input required type="text" th:field="${struttura.city}" /></span>
+            </div>
+            <div>
+                URL immagine: <span><input type="url" th:field="${struttura.urlImage}" /></span>
+            </div>
+            <div>
+                <input type="submit">
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>

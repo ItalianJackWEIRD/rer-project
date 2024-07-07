@@ -2,24 +2,48 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>Cerca Strutture</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+    <meta charset="UTF-8">
+    <title>Cerca Strutture</title>
+    <link rel="stylesheet" href="/css/stileSearch.css" />
 </head>
 
 <body>
-	<div>
-		<a href="/"><img src="/images/logo-rer.png" width="50%" /></a>
-	</div>
-	<h1>Cerca Strutture nella tua città</h1>
-	<form th:action="@{/searchStrutture}" method="post">
-		<div>
-			Città: <input type="text" th:value="${city}" name="city" />
-		</div>
-		<div>
-			<input type="submit" />
-		</div>
-	</form>
+    <nav class="navbar">
+        <a href="/" class="logo">Real Estate Roma</a>
+        <ul class="nav-links">
+            <li class="ctn" th:unless="${userDetails}">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="active" th:unless="${userDetails}">
+                <a class="nav-link" href="/register">Registrati</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/struttura">Strutture</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/host">Host</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/formSearchStrutture">Cerca Strutture nella tua città</a>
+            </li>
+            <li th:if="${userDetails}">
+                <a class="nav-link" href="/formNewStruttura">Inserisci una struttura</a>
+            </li>
+        </ul>
+        <img src="../static/images/menu-btn.png" alt="" class="menu-btn">
+    </nav>
+
+    <div class="container small-container">
+        <h1>Cerca Strutture nella tua città</h1>
+        <form th:action="@{/searchStrutture}" method="post">
+            <div class="citta">
+                Città: <input type="text" th:value="${city}" name="city" />
+            </div>
+            <div>
+                <input type="submit" />
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>

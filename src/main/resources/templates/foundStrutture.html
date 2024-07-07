@@ -2,37 +2,53 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>Strutture Trovate</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+    <meta charset="UTF-8">
+    <title>Strutture Trovate</title>
+    <link rel="stylesheet" href="/css/stileFoundStrutture.css" />
 </head>
 
 <body>
-	<div>
-		<a href="/"><img src="/images/logo-rer.png" width="50%" /></a>
-	</div>
-	<h1>Strutture Trovate</h1>
-	<ul>
-		<div th:if="${strutture}">
-			<li th:each="struttura : ${strutture}">
-				<p>
-					Nome: <span th:text="${struttura.name}"></span>
-				</p>
-				<p>
-					Città: <span th:text="${struttura.city}"></span>
-				</p>
-				<p>
-					<a th:href="@{/struttura/{id}(id=${struttura.id})}">Struttura</a>
-				</p>
-				<p>
-					<img width="15%" th:src=${struttura.urlImage} />
-				</p>
-			</li>
-		</div>
-		<div th:unless="${strutture}">
-			<li>Nessuna struttura trovata</li>
-		</div>
-	</ul>
+    <nav class="navbar">
+        <a href="/" class="logo">Real Estate Roma</a>
+        <ul class="nav-links">
+            <li class="ctn" th:unless="${userDetails}">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="active" th:unless="${userDetails}">
+                <a class="nav-link" href="/register">Registrati</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/struttura">Strutture</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/host">Host</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/formSearchStrutture">Cerca Strutture nella tua città</a>
+            </li>
+            <li th:if="${userDetails}">
+                <a class="nav-link" href="/formNewStruttura">Inserisci una struttura</a>
+            </li>
+        </ul>
+        <img src="../static/images/menu-btn.png" alt="" class="menu-btn">
+    </nav>
+
+    <div class="container small-container">
+        <h1>Strutture Trovate</h1>
+        <ul>
+            <div th:if="${strutture}">
+                <li th:each="struttura : ${strutture}">
+                    <p>Nome: <span th:text="${struttura.name}"></span></p>
+                    <p>Città: <span th:text="${struttura.city}"></span></p>
+                    <p><a th:href="@{/struttura/{id}(id=${struttura.id})}">Struttura</a></p>
+                    <p><img width="50%" th:src="${struttura.urlImage}" /></p>
+                </li>
+            </div>
+            <div th:unless="${strutture}">
+                <li>Nessuna struttura trovata</li>
+            </div>
+        </ul>
+    </div>
 </body>
 
 </html>

@@ -2,21 +2,47 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>Host</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+    <meta charset="UTF-8">
+    <title>Host</title>
+    <link rel="stylesheet" href="/css/stileHosts.css" />
 </head>
 
 <body>
-	<div><a href="/"><img src="/images/logo-rer.png" width="50%" /></a></div>
-	<h1>Host</h1>
-	<div th:if="${hosts==null || hosts.isEmpty()}">Non ci sono host nel sistema</div>
-	<ul>
-		<li th:each="host : ${hosts}">
-			<a th:href="@{'host' + '/' + ${host.id}}" th:text="${host.name} + ' ' + ${host.surname}">Up!
-				(2000)</a>
-		</li>
-	</ul>
+    <nav class="navbar">
+        <a href="/" class="logo">Real Estate Roma</a>
+        <ul class="nav-links">
+            <li class="ctn" th:unless="${userDetails}">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="active" th:unless="${userDetails}">
+                <a class="nav-link" href="/register">Registrati</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/struttura">Strutture</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/host">Host</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/formSearchStrutture">Cerca Strutture nella tua città</a>
+            </li>
+            <li th:if="${userDetails}">
+                <a class="nav-link" href="/formNewStruttura">Inserisci una struttura</a>
+            </li>
+        </ul>
+        <img src="../static/images/menu-btn.png" alt="" class="menu-btn">
+    </nav>
+
+    <div class="container small-container">
+        <h1>Host</h1>
+        <div th:if="${hosts==null || hosts.isEmpty()}">Non ci sono host nel sistema</div>
+        <ul>
+            <li th:each="host : ${hosts}">
+                <a th:href="@{'host' + '/' + ${host.id}}" th:text="${host.name} + ' ' + ${host.surname}">Up!
+                    (2000)</a>
+            </li>
+        </ul>
+    </div>
 </body>
 
 </html>

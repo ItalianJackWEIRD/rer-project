@@ -4,19 +4,46 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Host</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+	<link rel="stylesheet" href="/css/stileHost.css" />
 </head>
 
 <body>
-	<div><a href="/"><img src="/images/logo-rer.png" width="50%" /></a></div>
-	<h1>Dettagli Host</h1>
-	<div th:if="${host}">
-		<span th:text="${host.name}">Up!</span>
-		<!--<span>Up!</span> -->
-		<span th:text="${host.surname}">Up!</span>
-		<span><img width="15%" th:src=${host.urlImage} /></span>
+	<nav class="navbar">
+		<a href="/" class="logo">Real Estate Roma</a>
+		<ul class="nav-links">
+			<li class="ctn" th:unless="${userDetails}">
+				<a class="nav-link" href="/login">Login</a>
+			</li>
+			<li class="active" th:unless="${userDetails}">
+				<a class="nav-link" href="/register">Registrati</a>
+			</li>
+			<li>
+				<a class="nav-link" href="/struttura">Strutture</a>
+			</li>
+			<li>
+				<a class="nav-link" href="/host">Host</a>
+			</li>
+			<li>
+				<a class="nav-link" href="/formSearchStrutture">Cerca Strutture nella tua città</a>
+			</li>
+			<li th:if="${userDetails}">
+				<a class="nav-link" href="/formNewStruttura">Inserisci una struttura</a>
+			</li>
+		</ul>
+		<img src="../static/images/menu-btn.png" alt="" class="menu-btn">
+	</nav>
+
+	<div class="container small-container">
+		<h1>Dettagli Host</h1>
+		<div th:if="${host}">
+			<span th:text="${host.name}"></span>
+			<span th:text="${host.surname}"></span>
+		</div>
+		<div>
+			<span><img width="50%" th:src="${host.urlImage}" /></span>
+		</div>
+		<div th:unless="${host}">Non esiste</div>
 	</div>
-	<div th:unless="${host}">Non esiste</div>
 </body>
 
 </html>

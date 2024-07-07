@@ -4,25 +4,52 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Struttura</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+	<link rel="stylesheet" href="/css/stileStruttura.css" />
 </head>
 
 <body>
-	<div><a href="/"><img src="/images/logo-rer.png" width="30%" /></a></div>
-	<h1>Dettagli Struttura</h1>
-	<div th:if="${struttura}">
-		<span th:text="${struttura.name}"></span>
-		<span th:text="'(' + ${struttura.city} + ')'"></span>
-		<span><img width="15%" th:src=${struttura.urlImage} /></span>
-	</div>
-	<div>
-		<a th:href="@{/host/{id}(id=${struttura.host.id})}">Proprietario</a>
-	</div>
-	<div>
-		<a th:href="@{/struttura/{id}/prenota(id=${struttura.id})}" target="_blank">Prenota questa struttura</a>
-	</div>
-	<div th:unless="${struttura}">Non esiste</div>
+	<nav class="navbar">
+		<a href="/" class="logo">Real Estate Roma</a>
+		<ul class="nav-links">
+			<li class="ctn" th:unless="${userDetails}">
+				<a class="nav-link" href="/login">Login</a>
+			</li>
+			<li class="active" th:unless="${userDetails}">
+				<a class="nav-link" href="/register">Registrati</a>
+			</li>
+			<li>
+				<a class="nav-link" href="/struttura">Strutture</a>
+			</li>
+			<li>
+				<a class="nav-link" href="/host">Host</a>
+			</li>
+			<li>
+				<a class="nav-link" href="/formSearchStrutture">Cerca Strutture nella tua città</a>
+			</li>
+			<li th:if="${userDetails}">
+				<a class="nav-link" href="/formNewStruttura">Inserisci una struttura</a>
+			</li>
+		</ul>
+		<img src="../static/images/menu-btn.png" alt="" class="menu-btn">
+	</nav>
 
+	<div class="container small-container">
+		<h1>Dettagli Struttura</h1>
+		<div th:if="${struttura}">
+			<span th:text="${struttura.name}"></span>
+			<span th:text="'(' + ${struttura.city} + ')'"></span>
+		</div>
+		<div>
+			<span><img width="50%" th:src="${struttura.urlImage}" /></span>
+		</div>
+		<div>
+			<a th:href="@{/host/{id}(id=${struttura.host.id})}">Proprietario</a>
+		</div>
+		<div>
+			<a th:href="@{/struttura/{id}/prenota(id=${struttura.id})}" target="_blank">Prenota questa struttura</a>
+		</div>
+		<div th:unless="${struttura}">Non esiste</div>
+	</div>
 </body>
 
 </html>
