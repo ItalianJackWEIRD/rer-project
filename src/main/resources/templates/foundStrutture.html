@@ -41,7 +41,10 @@
                     <p>Nome: <span th:text="${struttura.name}"></span></p>
                     <p>Città: <span th:text="${struttura.city}"></span></p>
                     <p><a th:href="@{/struttura/{id}(id=${struttura.id})}">Struttura</a></p>
-                    <p><img width="50%" th:src="${struttura.urlImage}" /></p>
+                    <div>
+                        <img th:if="${struttura.hasImages() == true}"
+                            th:src="'data:image/jpeg;base64,' + ${struttura.getFirstImmagine().getBase64()}" width="20%" />
+                    </div>
                 </li>
             </div>
             <div th:unless="${strutture}">

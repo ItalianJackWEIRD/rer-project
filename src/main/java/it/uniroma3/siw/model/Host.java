@@ -1,18 +1,19 @@
 package it.uniroma3.siw.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import it.uniroma3.siw.model.auth.Credential;
+import it.uniroma3.siw.model.auth.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Host {
@@ -22,10 +23,21 @@ public class Host {
 	private Long id;
 	private String name;
 	private String surname;
-	private String urlImage;
+
+	@ElementCollection
+    @Column(nullable = true)
+    private List<Immagine> immagini = new ArrayList<>();
 
 	@OneToMany(mappedBy = "host", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Struttura> caseAffitto;
+
+
+	public Host(){}
+
+	public Host(User user){
+		this.name = user.getName();
+		this.surname = user.getSurname();
+	}
 
 	public Long getId() {
 		return id;
@@ -55,13 +67,14 @@ public class Host {
 		this.surname = surname;
 	}
 
-	public String getUrlImage() {
-		return this.urlImage;
+	public List<Immagine> getImmagini() {
+		return immagini;
 	}
 
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
+	public void setImmagini(List<Immagine> immagini) {
+		this.immagini = immagini;
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -80,5 +93,23 @@ public class Host {
 		Host other = (Host) obj;
 		return Objects.equals(name, other.name) && Objects.equals(surname, other.surname);
 	}
+
+
+	
+    public boolean hasImages() {
+        return !this.immagini.isEmpty();
+    } 
+
+    public Immagine getFirstImmagine(){
+        return this.immagini.get(0);
+    } 
+
+    public List<Immagine> getImmaginiDopoFirst(){
+        try {
+            return this.immagini.subList(1, this.immagini.size());
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 }

@@ -40,8 +40,9 @@
 			<span th:text="'(' + ${struttura.city} + ')'"></span>
 		</div>
 		<div>
-			<span><img width="50%" th:src="${struttura.urlImage}" /></span>
-		</div>
+            <img th:if="${struttura.hasImages() == true}"
+                th:src="'data:image/jpeg;base64,' + ${struttura.getFirstImmagine().getBase64()}" width="50%" />
+        </div>
 		<div>
 			<a th:href="@{/host/{id}(id=${struttura.host.id})}">Proprietario</a>
 		</div>

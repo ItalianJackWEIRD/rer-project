@@ -1,6 +1,8 @@
 package it.uniroma3.siw.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,16 +12,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Immagine;
 import it.uniroma3.siw.model.Prenotazione;
 import it.uniroma3.siw.model.Struttura;
 import it.uniroma3.siw.repository.StrutturaRepository;
 import it.uniroma3.siw.service.HostService;
+import it.uniroma3.siw.service.ImmagineService;
 import it.uniroma3.siw.service.PrenotazioneService;
 import it.uniroma3.siw.service.StrutturaService;
 
 @Controller
-public class StrutturaController {
+public class StrutturaController extends GlobalController {
 
 	@Autowired
 	private StrutturaService strutturaService;
@@ -31,10 +36,10 @@ public class StrutturaController {
 	private StrutturaRepository strutturaRepository;
 
 	@Autowired
-	private GlobalController globalController;
+	private PrenotazioneService prenotazioneService;
 
 	@Autowired
-	private PrenotazioneService prenotazioneService;
+	private ImmagineService immagineService;
 
 	@GetMapping("/struttura/{id}")
 	public String getStruttura(@PathVariable("id") Long id, Model model) {
@@ -55,16 +60,28 @@ public class StrutturaController {
 	}
 
 	@PostMapping("/struttura")
-	public String newStruttura(@ModelAttribute("struttura") Struttura struttura, Model model) {
+	public String newStruttura(@ModelAttribute("struttura") Struttura struttura, @RequestParam("immagine") MultipartFile immagine, Model model) throws IOException {
 		if (!strutturaRepository.existsByNameAndCity(struttura.getName(), struttura.getCity())) {
-			String name = globalController.getCredential().get().getUser().getName();
-			String surname = globalController.getCredential().get().getUser().getSurname();
+			String name = getCredential().get().getUser().getName();
+			String surname = getCredential().get().getUser().getSurname();
 			struttura.setHost(hostService.findByNameAndSurname(name, surname));
+
+			if (!immagine.isEmpty()) {
+				Immagine img = new Immagine();
+				img.setFileName(immagine.getOriginalFilename());
+				img.setImageData(immagine.getBytes());
+				if (struttura.getImmagini() == null) {
+					struttura.setImmagini(new ArrayList<>());
+				}
+				struttura.getImmagini().add(img);
+				immagineService.save(img);
+			}
+
 			this.strutturaService.save(struttura);
 			model.addAttribute("struttura", struttura);
 			return "redirect:/struttura/" + struttura.getId();
 		} else {
-			model.addAttribute("messaggioErrore", "Questo film esiste già");
+			model.addAttribute("messaggioErrore", "Questa struttura esiste già");
 			return "formNewstruttura.html";
 		}
 	}

@@ -13,7 +13,7 @@
 		<a href="/"><img src="/images/logo-rer.png" width="50%" /></a>
 	</div>
 	<h1>Aggiungi un Host</h1>
-	<form th:action="@{/host}" method="POST" th:object="${host}">
+	<form th:action="@{/host}" enctype = "multipart/form-data" method = "POST" th:object="${host}">
 		<div>
 			Nome: <span><input required type="text" th:field="${host.name}" /></span>
 		</div>
@@ -21,7 +21,13 @@
 			Cognome : <span><input required type="text" th:field="${host.surname}" /></span>
 		</div>
 		<div>
-			URL immagine : <span><input type="url" th:field="${host.urlImage}" /></span>
+			<label for="immagine">Immagine:</label>
+			<input type="file" id="immagine" name="immagine" accept="image/*">
+		</div>
+
+		<div>
+			<img th:if="${host.hasImages() == true}"
+				th:src="'data:image/jpeg;base64,' + ${host.getFirstImmagine().getBase64()}" width="30%" />
 		</div>
 		<div>
 			<span><button type="submit">Conferma</button></span>

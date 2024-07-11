@@ -11,6 +11,13 @@
     ],
     "axe/text-alternatives": "off",
     "meta-viewport": "off",
-    "axe/name-role-value": "off"
+    "axe/name-role-value": "off",
+    "axe/language": [
+      "default",
+      {
+        "html-has-lang": "off"
+      }
+    ],
+    "meta-charset-utf-8": "off"
   }
 }

@@ -14,7 +14,7 @@
 
     <div class="wrapper">
 
-        <form th:action="@{/register}" method="POST">
+        <form th:action="@{/register}" enctype = "multipart/form-data" method="POST">
             <h1>Registrati</h1>
 
             <div class="input-box">
@@ -51,16 +51,13 @@
 
             <div class="input-box">
                 <div class="input-field">
-                    <input type="text" placeholder="Url Immagine" required th:field="${user.urlImage}">
-                    <i class='bx bxs-image-add'></i>
-                    <span th:if="${#fields.hasErrors('user.urlImage')}" th:errors="${user.urlImage}"
-                        th:style="'color:red'"></span>
+                    <input type="file" id="immagine" name ="immagine" placeholder="Scegli file" accept="image/*">
                 </div>
             </div>
 
-            <label><input type="checkbox" required>Dichiaro di accettare le policy di questo sito e acconsento al
+            <!--<label><input type="checkbox" required>Dichiaro di accettare le policy di questo sito e acconsento al
                 trattamento dei
-                miei dati sensibili</label>
+                miei dati sensibili</label>-->
 
             <button type="submit" class="btn">Registrati</button>
 

@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Host;
+import it.uniroma3.siw.model.Immagine;
 import it.uniroma3.siw.model.auth.Credential;
 import it.uniroma3.siw.model.auth.User;
 import it.uniroma3.siw.service.CredentialService;
 import it.uniroma3.siw.service.HostService;
+import it.uniroma3.siw.service.ImmagineService;
 import it.uniroma3.siw.service.UserService;
 
 @Controller
@@ -35,10 +40,12 @@ public class AuthenticationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private ImmagineService immagineService;
+
     @GetMapping(value = "/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("host", new Host());
         model.addAttribute("credentials", new Credential());
         return "register.html";
     }
@@ -71,19 +78,32 @@ public class AuthenticationController {
 
             @ModelAttribute("credential") Credential credentials,
             BindingResult credentialsBindingResult,
-            Model model,
+            @RequestParam("immagine") MultipartFile immagine,
 
-            @ModelAttribute("host") Host host) {
+            Model model) throws IOException{
 
         if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             userService.save(user);
             credentials.setUser(user);
-            host.setName(user.getName());
-            host.setSurname(user.getSurname());
-            host.setUrlImage(user.getUrlImage());
+
+            Host host = new Host(user);
+
+            if (!immagine.isEmpty()) {
+                Immagine img = new Immagine();
+                img.setFileName(immagine.getOriginalFilename());
+                img.setImageData(immagine.getBytes());
+                if (host.getImmagini().isEmpty()) {
+                    host.getImmagini().add(img);
+                }
+                else {
+                    host.getImmagini().clear();
+                    host.getImmagini().add(img);
+                }
+            immagineService.save(img);
+            }
+
             hostService.save(host);
             // credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
-            //
             credentials.setRuolo(Credential.UTENTE_HOST);
             credentialService.save(credentials);
             model.addAttribute("user", user);

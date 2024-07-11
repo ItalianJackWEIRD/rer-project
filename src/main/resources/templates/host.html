@@ -33,6 +33,7 @@
 		<img src="../static/images/menu-btn.png" alt="" class="menu-btn">
 	</nav>
 
+
 	<div class="container small-container">
 		<h1>Dettagli Host</h1>
 		<div th:if="${host}">
@@ -40,8 +41,12 @@
 			<span th:text="${host.surname}"></span>
 		</div>
 		<div>
-			<span><img width="50%" th:src="${host.urlImage}" /></span>
+			<img th:if="${host.hasImages() == true}"
+				th:src="'data:image/jpeg;base64,' + ${host.getFirstImmagine().getBase64()}" width="50%" />
 		</div>
+		<!--<div>
+			<span><img width="50%" th:src="${host.urlImage}" /></span>
+		</div>-->
 		<div th:unless="${host}">Non esiste</div>
 	</div>
 </body>

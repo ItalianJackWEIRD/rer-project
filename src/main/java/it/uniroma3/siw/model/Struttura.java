@@ -3,6 +3,8 @@ package it.uniroma3.siw.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +21,10 @@ public class Struttura {
 	private Long id;
 	private String name;
 	private String city;
-	private String urlImage;
+
+	@ElementCollection
+    @Column(nullable = true)
+    private List<Immagine> immagini = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "host_id", nullable = false)
@@ -56,12 +61,13 @@ public class Struttura {
 		this.city = city;
 	}
 
-	public String getUrlImage() {
-		return urlImage;
+
+	public List<Immagine> getImmagini() {
+		return immagini;
 	}
 
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
+	public void setImmagini(List<Immagine> immagini) {
+		this.immagini = immagini;
 	}
 
 	public Host getHost() {
@@ -90,6 +96,7 @@ public class Struttura {
 		int result = 1;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((immagini == null) ? 0 : immagini.hashCode());
 		return result;
 	}
 
@@ -114,5 +121,21 @@ public class Struttura {
 			return false;
 		return true;
 	}
+
+	public boolean hasImages() {
+        return !this.immagini.isEmpty();
+    } 
+
+    public Immagine getFirstImmagine(){
+        return this.immagini.get(0);
+    } 
+
+    public List<Immagine> getImmaginiDopoFirst(){
+        try {
+            return this.immagini.subList(1, this.immagini.size());
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 }
