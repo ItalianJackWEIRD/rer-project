@@ -78,9 +78,9 @@ public class AuthenticationController {
 
             @ModelAttribute("credential") Credential credentials,
             BindingResult credentialsBindingResult,
-            @RequestParam("immagine") MultipartFile immagine,
+            /*@RequestParam("immagine") MultipartFile immagine,*/
 
-            Model model) throws IOException{
+            Model model) /*throws IOException*/{
 
         if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             userService.save(user);
@@ -88,19 +88,19 @@ public class AuthenticationController {
 
             Host host = new Host(user);
 
-            if (!immagine.isEmpty()) {
-                Immagine img = new Immagine();
-                img.setFileName(immagine.getOriginalFilename());
-                img.setImageData(immagine.getBytes());
-                if (host.getImmagini().isEmpty()) {
-                    host.getImmagini().add(img);
-                }
-                else {
-                    host.getImmagini().clear();
-                    host.getImmagini().add(img);
-                }
-            immagineService.save(img);
-            }
+            //if (!immagine.isEmpty()) {
+            //    Immagine img = new Immagine();
+            //    img.setFileName(immagine.getOriginalFilename());
+            //    img.setImageData(immagine.getBytes());
+            //    if (host.getImmagini().isEmpty()) {
+            //        host.getImmagini().add(img);
+            //    }
+            //    else {
+            //        host.getImmagini().clear();
+            //        host.getImmagini().add(img);
+            //    }
+            //immagineService.save(img);
+            //}
 
             hostService.save(host);
             // credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
