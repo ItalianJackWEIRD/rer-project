@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifica Struttura</title>
+</head>
+<body>
+<a th:href="@{/strutture/{struttura_id}(struttura_id=${struttura.id})}">Torna ai dettagli della struttura</a>
+
+<h1>Modifica i dettagli della Struttura</h1>
+<form th:action="@{/editStruttura/{struttura_id}(struttura_id=${struttura.id})}" enctype="multipart/form-data" th:object="${struttura}" method="post">
+    <div>
+        <label for="name">Nome:</label>
+        <input type="text" id="name" th:field="*{name}" required>
+    </div>
+    <div>
+        <label for="city">Città:</label>
+        <input type="text" id="city" th:field="*{city}" required>
+    </div>
+    <div>
+        <label for="immagine">Immagine:</label>
+        <input type="file" id="immagine" name="immagine" accept="image/*">
+    </div>
+
+    <div>
+        <img th:if="${struttura.hasImages() == true}"
+            th:src="'data:image/jpeg;base64,' + ${struttura.getFirstImmagine().getBase64()}" width="30%" />
+    </div>
+    <div>
+        <button type="submit">Conferma modifiche</button>
+    </div

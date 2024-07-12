@@ -100,6 +100,9 @@ public class Credential {
         return true;
     }
 
+    public boolean isAdmin() {
+        return this.ruolo.equals("HOST");
+    }
     //////////////////////////////////////////////////////////////////////////////////////////
 
 }

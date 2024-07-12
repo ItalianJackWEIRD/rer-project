@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Host;
 import it.uniroma3.siw.model.Immagine;
+import it.uniroma3.siw.model.auth.User;
 import it.uniroma3.siw.service.HostService;
 import it.uniroma3.siw.service.ImmagineService;
 
@@ -63,4 +64,39 @@ public class HostController extends GlobalController {
 		model.addAttribute("host", host);
 		return "redirect:/host/" + host.getId();
 	}
+
+
+	@GetMapping("/editHost/{host_id}")
+public String getFormEditHost(@PathVariable("host_id") Long id, Model model) {
+    Host host = this.hostService.findById(id);
+    User user = getCredential().getUser();
+    if (hostService.findByNameAndSurname(user.getName(), user.getSurname()).getId() == host.getId()) {
+        model.addAttribute("host", host);
+        return "formModificaHost.html";
+    } else {
+        return "redirect:/error";
+    }
+}
+
+@PostMapping("/editHost/{host_id}")
+public String updateHost(@PathVariable("host_id") Long id, @ModelAttribute Host host, 
+                         @RequestParam("immagine") MultipartFile immagine) throws IOException {
+    host.setId(id);
+
+    if (!immagine.isEmpty()) {
+        Immagine img = new Immagine();
+        img.setFileName(immagine.getOriginalFilename());
+        img.setImageData(immagine.getBytes());
+        if (host.getImmagini().isEmpty()) {
+            host.getImmagini().add(img);
+        } else {
+            host.getImmagini().clear();
+            host.getImmagini().add(img);
+        }
+        immagineService.save(img);
+    }
+
+    this.hostService.save(host);
+    return "redirect:/host/" + host.getId();
+}
 }

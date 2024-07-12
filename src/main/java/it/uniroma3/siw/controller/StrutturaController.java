@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import it.uniroma3.siw.model.Immagine;
 import it.uniroma3.siw.model.Prenotazione;
 import it.uniroma3.siw.model.Struttura;
+import it.uniroma3.siw.model.auth.User;
 import it.uniroma3.siw.repository.StrutturaRepository;
 import it.uniroma3.siw.service.HostService;
 import it.uniroma3.siw.service.ImmagineService;
@@ -62,8 +63,8 @@ public class StrutturaController extends GlobalController {
 	@PostMapping("/struttura")
 	public String newStruttura(@ModelAttribute("struttura") Struttura struttura, @RequestParam("immagine") MultipartFile immagine, Model model) throws IOException {
 		if (!strutturaRepository.existsByNameAndCity(struttura.getName(), struttura.getCity())) {
-			String name = getCredential().get().getUser().getName();
-			String surname = getCredential().get().getUser().getSurname();
+			String name = getCredential().getUser().getName();
+			String surname = getCredential().getUser().getSurname();
 			struttura.setHost(hostService.findByNameAndSurname(name, surname));
 
 			if (!immagine.isEmpty()) {
@@ -127,5 +128,39 @@ public class StrutturaController extends GlobalController {
 		model.addAttribute("prenotazione", prenotazione);
 		return "prenotazioneStruttura.html";
 	}
+
+	@GetMapping("/editStruttura/{struttura_id}")
+public String getFormEditStruttura(@PathVariable("struttura_id") Long id, Model model) {
+    Struttura struttura = this.strutturaService.findById(id);
+    User user = getCredential().getUser();
+    if (struttura.getHost().getId() == hostService.findByNameAndSurname(user.getName(), user.getSurname()).getId()) {
+        model.addAttribute("struttura", struttura);
+        return "formModificaStruttura.html";
+    } else {
+        return "redirect:/error";
+    }
+}
+
+@PostMapping("/editStruttura/{struttura_id}")
+public String updateStruttura(@PathVariable("struttura_id") Long id, @ModelAttribute Struttura struttura, 
+                             @RequestParam("immagine") MultipartFile immagine) throws IOException {
+    struttura.setId(id);
+
+    if (!immagine.isEmpty()) {
+        Immagine img = new Immagine();
+        img.setFileName(immagine.getOriginalFilename());
+        img.setImageData(immagine.getBytes());
+        if (struttura.getImmagini().isEmpty()) {
+            struttura.getImmagini().add(img);
+        } else {
+            struttura.getImmagini().clear();
+            struttura.getImmagini().add(img);
+        }
+        immagineService.save(img);
+    }
+
+    this.strutturaService.save(struttura);
+    return "redirect:/struttura/" + id;
+}
 
 }

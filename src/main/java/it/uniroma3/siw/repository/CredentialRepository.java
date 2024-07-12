@@ -8,5 +8,5 @@ import it.uniroma3.siw.model.auth.Credential;
 
 public interface CredentialRepository extends CrudRepository<Credential, Long> {
     
-    public Optional<Credential> findByUsername(String username);
+    public Credential findByUsername(String username);
 }

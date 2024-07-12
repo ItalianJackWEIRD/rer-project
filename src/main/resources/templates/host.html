@@ -36,6 +36,7 @@
 
 	<div class="container small-container">
 		<h1>Dettagli Host</h1>
+		<a th:href="@{/editHost/{host_id}(host_id=${host.id})}">Modifica il profilo</a>
 		<div th:if="${host}">
 			<span th:text="${host.name}"></span>
 			<span th:text="${host.surname}"></span>

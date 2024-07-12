@@ -58,8 +58,8 @@ public class AuthConfiguration {
                         .permitAll()
                         // solo gli utenti autenticati con ruolo HOST possono accedere a risorse con
                         // path /formNewStruttura
-                        .requestMatchers(HttpMethod.GET, "/formNewStruttura").hasAnyAuthority("HOST")
-                        .requestMatchers(HttpMethod.POST, "/formNewStruttura").hasAnyAuthority("HOST")
+                        .requestMatchers(HttpMethod.GET, "/formNewStruttura"/* aggiungi qui mapping di modifica */).hasAnyAuthority("HOST")
+                        .requestMatchers(HttpMethod.POST, "/formNewStruttura"/*aggiungi qui mapping di modifica */).hasAnyAuthority("HOST")
                         // tutti gli utenti autenticati possono accere alle pag
                         .anyRequest().authenticated())
 
