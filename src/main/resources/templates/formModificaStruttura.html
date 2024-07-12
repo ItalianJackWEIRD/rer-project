@@ -5,10 +5,11 @@
     <title>Modifica Struttura</title>
 </head>
 <body>
-<a th:href="@{/strutture/{struttura_id}(struttura_id=${struttura.id})}">Torna ai dettagli della struttura</a>
+<a th:href="@{/struttura/{id}(id=${struttura.id})}">Torna ai dettagli della struttura</a>
 
 <h1>Modifica i dettagli della Struttura</h1>
 <form th:action="@{/editStruttura/{struttura_id}(struttura_id=${struttura.id})}" enctype="multipart/form-data" th:object="${struttura}" method="post">
+    <input type="hidden" th:value="${struttura.host.id}" name="struttura.host.id" />
     <div>
         <label for="name">Nome:</label>
         <input type="text" id="name" th:field="*{name}" required>
@@ -28,4 +29,4 @@
     </div>
     <div>
         <button type="submit">Conferma modifiche</button>
-    </div
+    </div>

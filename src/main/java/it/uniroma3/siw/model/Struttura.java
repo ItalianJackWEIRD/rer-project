@@ -27,7 +27,7 @@ public class Struttura {
     private List<Immagine> immagini = new ArrayList<>();
 
 	@ManyToOne
-	@JoinColumn(name = "host_id", nullable = false)
+	@JoinColumn(name = "host_id")
 	private Host host;
 
 	// @OneToMany(mappedBy = "struttura")

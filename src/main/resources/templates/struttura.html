@@ -34,6 +34,7 @@
 	</nav>
 
 	<div class="container small-container">
+		<a th:href="@{/editStruttura/{struttura_id}(struttura_id=${struttura.id})}">Modifica la scheda della struttura</a>
 		<h1>Dettagli Struttura</h1>
 		<div th:if="${struttura}">
 			<span th:text="${struttura.name}"></span>
@@ -41,10 +42,10 @@
 		</div>
 		<div>
             <img th:if="${struttura.hasImages() == true}"
-                th:src="'data:image/jpeg;base64,' + ${struttura.getFirstImmagine().getBase64()}" width="50%" />
+                th:src="'data:image/jpeg;base64,' + ${struttura.getFirstImmagine().getBase64()}" width="30%" />
         </div>
 		<div>
-			<a th:href="@{/host/{id}(id=${struttura.host.id})}">Proprietario</a>
+	        <span th:text="${struttura.host.name} + ' ' + ${struttura.host.surname}">Nome Host</span>
 		</div>
 		<div>
 			<a th:href="@{/struttura/{id}/prenota(id=${struttura.id})}" target="_blank">Prenota questa struttura</a>

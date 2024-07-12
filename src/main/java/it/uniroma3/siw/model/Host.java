@@ -28,8 +28,8 @@ public class Host {
     @Column(nullable = true)
     private List<Immagine> immagini = new ArrayList<>();
 
-	@OneToMany(mappedBy = "host", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Struttura> caseAffitto;
+	@OneToMany(mappedBy = "host", cascade = CascadeType.ALL)
+	private List<Struttura> caseAffitto = new ArrayList<>();
 
 
 	public Host(){}

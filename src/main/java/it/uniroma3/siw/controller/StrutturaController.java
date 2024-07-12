@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Host;
 import it.uniroma3.siw.model.Immagine;
 import it.uniroma3.siw.model.Prenotazione;
 import it.uniroma3.siw.model.Struttura;
@@ -56,6 +57,9 @@ public class StrutturaController extends GlobalController {
 
 	@GetMapping("/formNewStruttura")
 	public String formNewstruttura(Model model) {
+		User user = getCredential().getUser();
+		Host host = hostService.findByNameAndSurname(user.getName(), user.getSurname());
+		model.addAttribute("host", host);
 		model.addAttribute("struttura", new Struttura());
 		return "formNewStruttura.html";
 	}
@@ -65,7 +69,9 @@ public class StrutturaController extends GlobalController {
 		if (!strutturaRepository.existsByNameAndCity(struttura.getName(), struttura.getCity())) {
 			String name = getCredential().getUser().getName();
 			String surname = getCredential().getUser().getSurname();
-			struttura.setHost(hostService.findByNameAndSurname(name, surname));
+			Host host = this.hostService.findByNameAndSurname(name, surname);
+
+			struttura.setHost(host);
 
 			if (!immagine.isEmpty()) {
 				Immagine img = new Immagine();
@@ -79,6 +85,8 @@ public class StrutturaController extends GlobalController {
 			}
 
 			this.strutturaService.save(struttura);
+			host.getCase().add(struttura);
+			hostService.save(host);
 			model.addAttribute("struttura", struttura);
 			return "redirect:/struttura/" + struttura.getId();
 		} else {
@@ -133,7 +141,7 @@ public class StrutturaController extends GlobalController {
 public String getFormEditStruttura(@PathVariable("struttura_id") Long id, Model model) {
     Struttura struttura = this.strutturaService.findById(id);
     User user = getCredential().getUser();
-    if (struttura.getHost().getId() == hostService.findByNameAndSurname(user.getName(), user.getSurname()).getId()) {
+    if (hostService.findByNameAndSurname(user.getName(), user.getSurname()).getId() == struttura.getHost().getId()) {
         model.addAttribute("struttura", struttura);
         return "formModificaStruttura.html";
     } else {
@@ -145,6 +153,8 @@ public String getFormEditStruttura(@PathVariable("struttura_id") Long id, Model 
 public String updateStruttura(@PathVariable("struttura_id") Long id, @ModelAttribute Struttura struttura, 
                              @RequestParam("immagine") MultipartFile immagine) throws IOException {
     struttura.setId(id);
+	User user = getCredential().getUser();
+	struttura.setHost(hostService.findByNameAndSurname(user.getName(), user.getSurname()));
 
     if (!immagine.isEmpty()) {
         Immagine img = new Immagine();
