@@ -35,7 +35,7 @@
 
     <div class="container">
         <h1>Strutture</h1>
-        <div th:if="${strutture==null || strutture.isEmpty()}">Non ci sono strutture nel sistema</div>
+        <div><span th:if="${strutture==null || strutture.isEmpty()}">Non ci sono strutture nel sistema</span></div>
         <ul>
             <li th:each="struttura : ${strutture}">
                 <a th:href="@{'/struttura' + '/' + ${struttura.id}}"

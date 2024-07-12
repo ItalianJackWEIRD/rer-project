@@ -3,32 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Modifica Host</title>
+    <link rel="stylesheet" href="/css/stileNewStruttura.css" />
 </head>
 <body>
-<a th:href="@{/host/{id}(id=${host.id})}">Torna alla scheda dell'host</a>
+    <a th:href="@{/host/{id}(id=${host.id})}">Torna alla scheda dell'host</a>
 
-<h1>Modifica la scheda dell'host</h1>
-<form th:action="@{/editHost/{host_id}(host_id=${host.id})}" enctype="multipart/form-data" th:object="${host}" method="post">
-    <div>
-        <label for="name">Modifica nome:</label>
-        <input type="text" id="name" th:field="*{name}" />
-    </div>
-    <div>
-        <label for="surname">Modifica cognome:</label>
-        <input type="text" id="surname" th:field="*{surname}" />
-    </div>
-    <div>
-        <label for="immagine">Immagine:</label>
-        <input type="file" id="immagine" name="immagine" accept="image/*">
-    </div>
+    <div class="container small-container">
+        <h1>Modifica la scheda dell'host</h1>
+        <form th:action="@{/editHost/{host_id}(host_id=${host.id})}" enctype="multipart/form-data" th:object="${host}" method="post">
+            <div>
+                <label for="name">Modifica nome:</label>
+                <input type="text" id="name" th:field="*{name}" />
+            </div>
+            <div>
+                <label for="surname">Modifica cognome:</label>
+                <input type="text" id="surname" th:field="*{surname}" />
+            </div>
+            <div>
+                <label for="immagine">Immagine:</label>
+                <input type="file" id="immagine" name="immagine" accept="image/*">
+            </div>
 
-    <div>
-        <img th:if="${host.hasImages() == true}"
-            th:src="'data:image/jpeg;base64,' + ${host.getFirstImmagine().getBase64()}" width="30%" />
+            <div>
+                <img th:if="${host.hasImages() == true}"
+                    th:src="'data:image/jpeg;base64,' + ${host.getFirstImmagine().getBase64()}" width="30%" />
+            </div>
+            <div>
+                <button type="submit">Conferma modifiche</button>
+            </div>
+        </form>
     </div>
-    <div>
-        <button type="submit">Conferma modifiche</button>
-    </div>
-</form>
 </body>
 </html>
